@@ -1,13 +1,17 @@
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaView, StyleSheet } from "react-native";
+import { Provider } from "react-redux";
+import { store } from "./app/redux/store";
 import SearchResultsScreen from "./app/screens/MoviesList";
 
 export default function App() {
   return (
-    <SafeAreaView style={styles.container}>
-      <SearchResultsScreen />
-      <StatusBar style="auto" />
-    </SafeAreaView>
+    <Provider store={store}>
+      <SafeAreaView style={styles.container}>
+        <SearchResultsScreen />
+        <StatusBar style="auto" />
+      </SafeAreaView>
+    </Provider>
   );
 }
 

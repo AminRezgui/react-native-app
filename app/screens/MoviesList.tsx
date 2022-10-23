@@ -1,5 +1,7 @@
 import axios from "axios";
 import React, { FC, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { appendMovies } from "../redux/actions/moviesAction";
 import { StyleSheet, ScrollView, SafeAreaView } from "react-native";
 import MovieCard from "../components/MovieCard";
 import SearchInput from "../components/SearchInput";
@@ -13,13 +15,17 @@ interface Movie {
 }
 
 const SearchResultsScreen: FC = () => {
+  const dispatch = useDispatch();
   const [searchValue, setSearchValue] = useState<string | null>("");
   const [moviesList, setMoviesList] = useState<Movie[]>();
 
   useEffect(() => {
     axios
       .get(`http://www.omdbapi.com/?apikey=f2b12986&s=${searchValue}`)
-      .then((response) => setMoviesList(response.data.Search));
+      .then((response) => {
+        setMoviesList(response.data.Search);
+        dispatch(appendMovies(response.data.Search));
+      });
   }, [searchValue]);
 
   console.log(searchValue);
