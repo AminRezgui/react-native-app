@@ -24,7 +24,7 @@ const SearchResultsScreen: FC = () => {
       .get(`http://www.omdbapi.com/?apikey=f2b12986&s=${searchValue}`)
       .then((response) => {
         setMoviesList(response.data.Search);
-        dispatch(appendMovies(response.data.Search));
+        //dispatch(appendMovies(response.data.Search));
       });
   }, [searchValue]);
 
