@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-const DetailsScreen = () => {
+const DetailsScreen = ({ route, navigation }) => {
   const [movieDetails, setMovieDetails] = useState(null);
+  const item = route.params.item;
   useEffect(() => {
     axios
-      .get(`http://www.omdbapi.com/?apikey=f2b12986&i=tt1905041`)
+      .get(`http://www.omdbapi.com/?apikey=f2b12986&i=${item.imdbID}`)
       .then((response) => {
         setMovieDetails(response.data);
         console.log(response.data);
@@ -17,7 +18,7 @@ const DetailsScreen = () => {
   return (
     <>
       {!!movieDetails && (
-        <>
+        <View style={styles.container}>
           <Image
             source={{ uri: movieDetails.Poster, width: "100%", height: "50%" }}
           />
@@ -42,7 +43,7 @@ const DetailsScreen = () => {
             <Text style={styles.text}>{movieDetails.Runtime}</Text>
             <Text style={styles.plot}>{movieDetails.Plot}</Text>
           </View>
-        </>
+        </View>
       )}
     </>
   );
@@ -56,7 +57,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#191919",
   },
   header: { paddingLeft: 10 },
-  details: { flex: 1 },
+  details: { flex: 1, marginHorizontal: 30 },
   infos: {
     display: "flex",
     flexDirection: "row",
