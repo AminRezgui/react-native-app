@@ -38,7 +38,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#323232",
     borderRadius: 5,
     marginVertical: 10,
-    width: "80%",
   },
   imageContainer: {
     marginHorizontal: 10,

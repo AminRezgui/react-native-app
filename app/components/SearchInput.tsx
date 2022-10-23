@@ -33,7 +33,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     height: 50,
     padding: 10,
-    width: "80%",
   },
   textInput: {
     color: "#6B6B6B",
