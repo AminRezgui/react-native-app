@@ -24,10 +24,10 @@ const SearchResultsScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <SearchInput
+        style={{ width: "100%" }}
         placeholder="Search"
         onChangeText={(text) => setSearchValue(text)}
       />
-      {/* <Button onPress={() => navigation.navigate("details")} title="go back" /> */}
       <ScrollView style={styles.list}>
         {!!moviesList &&
           moviesList.map((el) => (
@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#191919",
     width: "100%",
+    padding: 40,
   },
   list: {
     marginTop: 20,
