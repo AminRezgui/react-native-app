@@ -2,29 +2,21 @@ import axios from "axios";
 import React, { FC, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { appendMovies } from "../redux/actions/moviesAction";
-import { StyleSheet, ScrollView, SafeAreaView } from "react-native";
+import { StyleSheet, ScrollView, SafeAreaView, Button } from "react-native";
 import MovieCard from "../components/MovieCard";
 import SearchInput from "../components/SearchInput";
 
-interface Movie {
-  Poster: string;
-  Title: string;
-  Type: string;
-  Year: string;
-  imdbID: string;
-}
-
-const SearchResultsScreen: FC = () => {
+const SearchResultsScreen = ({ navigation }) => {
   const dispatch = useDispatch();
-  const [searchValue, setSearchValue] = useState<string | null>("");
-  const [moviesList, setMoviesList] = useState<Movie[]>();
+  const [searchValue, setSearchValue] = useState("");
+  const [moviesList, setMoviesList] = useState();
 
   useEffect(() => {
     axios
       .get(`http://www.omdbapi.com/?apikey=f2b12986&s=${searchValue}`)
       .then((response) => {
         setMoviesList(response.data.Search);
-        dispatch(appendMovies(response.data.Search));
+        //dispatch(appendMovies(response.data.Search));
       });
   }, [searchValue]);
 
@@ -35,9 +27,12 @@ const SearchResultsScreen: FC = () => {
         placeholder="Search"
         onChangeText={(text) => setSearchValue(text)}
       />
+      {/* <Button onPress={() => navigation.navigate("details")} title="go back" /> */}
       <ScrollView style={styles.list}>
         {!!moviesList &&
-          moviesList.map((el) => <MovieCard item={el} key={el.imdbID} />)}
+          moviesList.map((el) => (
+            <MovieCard navigation={navigation} item={el} key={el.imdbID} />
+          ))}
       </ScrollView>
     </SafeAreaView>
   );

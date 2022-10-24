@@ -1,22 +1,13 @@
 import React, { FC } from "react";
 import { View, StyleSheet, Image, Text, TouchableOpacity } from "react-native";
-interface Movie {
-  Poster: string;
-  Title: string;
-  Type: string;
-  Year: string;
-  imdbID: string;
-}
-interface Props {
-  item: Movie;
-}
 
-const MovieCard: FC<Props> = (props) => {
+const MovieCard = (props) => {
   const item = props.item;
+  const navigation = props.navigation;
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => console.log("item pressed")}
+      onPress={() => navigation.navigate("details", { item: item })}
     >
       <View style={styles.imageContainer}>
         <Image source={{ uri: item.Poster, width: 64, height: 64 }} />
