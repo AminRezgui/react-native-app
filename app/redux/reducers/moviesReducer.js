@@ -10,7 +10,7 @@ export default (state = initialState, action) => {
         return state;
       } else
         return {
-          moviesList: [...state.moviesList, action.payload],
+          moviesList: [action.payload, ...state.moviesList],
         };
     case "INITIALIZE":
       return {
