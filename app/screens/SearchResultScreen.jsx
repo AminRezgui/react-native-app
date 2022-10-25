@@ -1,39 +1,38 @@
 import axios from "axios";
 import React, { FC, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { appendMovies } from "../redux/actions/moviesAction";
-import { StyleSheet, ScrollView, SafeAreaView, Button } from "react-native";
-import MovieCard from "../components/MovieCard";
+import { useSelector } from "react-redux";
+import { StyleSheet, ScrollView, SafeAreaView, Text } from "react-native";
 import SearchInput from "../components/SearchInput";
+import MoviesList from "../components/MoviesList";
 
 const SearchResultsScreen = ({ navigation }) => {
-  const dispatch = useDispatch();
   const [searchValue, setSearchValue] = useState("");
-  const [moviesList, setMoviesList] = useState();
+  const [moviesList, setMoviesList] = useState([]);
+  const lastMovies = useSelector((state) => state.moviesReducer.moviesList);
 
   useEffect(() => {
     axios
       .get(`http://www.omdbapi.com/?apikey=f2b12986&s=${searchValue}`)
       .then((response) => {
         setMoviesList(response.data.Search);
-        //dispatch(appendMovies(response.data.Search));
       });
   }, [searchValue]);
 
-  console.log(searchValue);
   return (
     <SafeAreaView style={styles.container}>
       <SearchInput
         style={{ width: "100%" }}
         placeholder="Search"
+        value={searchValue}
         onChangeText={(text) => setSearchValue(text)}
       />
-      <ScrollView style={styles.list}>
-        {!!moviesList &&
-          moviesList.map((el) => (
-            <MovieCard navigation={navigation} item={el} key={el.imdbID} />
-          ))}
-      </ScrollView>
+      <MoviesList
+        navigation={navigation}
+        moviesList={moviesList}
+        lastMovies={lastMovies}
+        setSearchValue={setSearchValue}
+        setMoviesList={setMoviesList}
+      />
     </SafeAreaView>
   );
 };
@@ -44,9 +43,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#191919",
     width: "100%",
     padding: 40,
-  },
-  list: {
-    marginTop: 20,
   },
 });
 

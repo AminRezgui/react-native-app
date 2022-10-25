@@ -3,6 +3,7 @@ import { TextInput, View, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 interface Props {
   placeholder: string;
+  value: string;
   onChangeText: (text: string) => void;
 }
 
@@ -14,6 +15,7 @@ const SearchInput: FC<Props> = (props) => {
           style={styles.textInput}
           placeholder={props.placeholder}
           placeholderTextColor={"#6B6B6B"}
+          value={props.value}
           onChangeText={props.onChangeText}
         />
       </View>

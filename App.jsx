@@ -3,7 +3,7 @@ import { SafeAreaView, StyleSheet } from "react-native";
 import { Provider } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
 import { store } from "./app/redux/store";
-import SearchResultsScreen from "./app/screens/MoviesList";
+import SearchResultsScreen from "./app/screens/SearchResultScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import DetailsScreen from "./app/screens/DetailsScreen";
 

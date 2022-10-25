@@ -11,7 +11,6 @@ const DetailsScreen = ({ route, navigation }) => {
       .get(`http://www.omdbapi.com/?apikey=f2b12986&i=${item.imdbID}`)
       .then((response) => {
         setMovieDetails(response.data);
-        console.log(response.data);
       });
   }, []);
 
